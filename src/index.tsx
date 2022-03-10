@@ -2,15 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import './App.css';
 import reportWebVitals from './reportWebVitals';
-import WorkTypeFrom from './components/WorkTypeFrom';
+import OutpatientWorkFrom, {Worker} from './components/OutpatientWorkFrom';
+import { Col, Row } from 'antd';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App target='John'/>
-    <WorkTypeFrom></WorkTypeFrom>
+
+    <Row gutter={16}>
+      <Col><OutpatientWorkFrom worker={Worker.Doctor} ></OutpatientWorkFrom></Col>
+      <Col><OutpatientWorkFrom worker={Worker.Nurse} ></OutpatientWorkFrom></Col>
+    </Row>
   </React.StrictMode>,
-  
   document.getElementById('root')
 );
 
