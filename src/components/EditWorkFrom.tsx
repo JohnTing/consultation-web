@@ -1,8 +1,7 @@
-import { type } from "@testing-library/user-event/dist/type";
-import { Anchor, Button, List, message, Table } from "antd";
+import { Button, message, Table } from "antd";
 import Input from "antd/lib/input/Input";
 import React, { useEffect, useState } from "react";
-import { createInputFiles } from "typescript";
+
 
 const API_TOKEN = "Bearer tokena";
 
