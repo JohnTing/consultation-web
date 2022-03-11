@@ -4,16 +4,18 @@ import './index.css';
 import App from './App';
 import './App.css';
 import reportWebVitals from './reportWebVitals';
-import OutpatientWorkFrom, {Worker} from './components/OutpatientWorkFrom';
 import { Col, Row } from 'antd';
+
+import EditWorkFrom, {Worker} from './components/EditWorkFrom';
+
 
 
 ReactDOM.render(
   <React.StrictMode>
 
     <Row gutter={16}>
-      <Col><OutpatientWorkFrom worker={Worker.Doctor} ></OutpatientWorkFrom></Col>
-      <Col><OutpatientWorkFrom worker={Worker.Nurse} ></OutpatientWorkFrom></Col>
+      <Col><EditWorkFrom worker={Worker.Doctor} ></EditWorkFrom></Col>
+      <Col><EditWorkFrom worker={Worker.Nurse} ></EditWorkFrom></Col>
     </Row>
   </React.StrictMode>,
   document.getElementById('root')
