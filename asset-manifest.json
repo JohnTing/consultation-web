@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/johnting.github.io/consultation-web/static/css/main.cd251835.css",
+    "main.js": "/johnting.github.io/consultation-web/static/js/main.bb474c99.js",
+    "static/js/787.28cb0dcd.chunk.js": "/johnting.github.io/consultation-web/static/js/787.28cb0dcd.chunk.js",
+    "index.html": "/johnting.github.io/consultation-web/index.html",
+    "main.cd251835.css.map": "/johnting.github.io/consultation-web/static/css/main.cd251835.css.map",
+    "main.bb474c99.js.map": "/johnting.github.io/consultation-web/static/js/main.bb474c99.js.map",
+    "787.28cb0dcd.chunk.js.map": "/johnting.github.io/consultation-web/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cd251835.css",
+    "static/js/main.bb474c99.js"
+  ]
+}
