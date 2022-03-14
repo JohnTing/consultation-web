@@ -1,3 +1,4 @@
+import { keyboard } from "@testing-library/user-event/dist/keyboard";
 import { Button, message, Table } from "antd";
 import Input from "antd/lib/input/Input";
 import React, { useEffect, useState } from "react";
@@ -77,8 +78,11 @@ export default function OutpatientWorkFrom(props: Props) {
           <Input
             id="myinput"
             style={{ width: "50%" }}
-            onChange={(e) => {
+            onChange={e => {
               setInput(e.target.value);
+            }}
+            onKeyDown={e => {
+              if (e.key === 'Enter') handleAdd();
             }}
           ></Input>
         </>
