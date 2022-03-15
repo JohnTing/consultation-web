@@ -46,30 +46,53 @@ export default function WorkQueueFrom() {
           });
       }, []);
     
+      const deleteById = (workQueue:WorkQueue) => {
+        setState(dataSource.filter((value) => value.id !== workQueue.id))
+        fetch(API_URL + `/${workQueue.id}`, {
+        method: "DELETE",
+        headers: API_HEADERS,
+      })
+        .then((response) => response.json())
+        .then((data: WorkQueue) => {
+          message.success(`成功刪除 ${data.doctorWork + data.nurseWork}`);
+        })
+        .catch((e) => {
+          message.error(`刪除失敗: ${e}`);
+          console.log(e);
+        });
+      }
+
+
       const columns = [
         {
           title: '病患序號',
-          dataIndex: 'id',
-          key: 'id',
+          dataIndex: 'patientSerial',
+          key: 'patientSerial',
           render: (patientSerial:number) => <>{patientSerial}</>,
         },
         {
           title: '醫師工作項目',
           dataIndex: 'doctorWork',
           key: 'doctorWork',
-          render: (doctorWork:string) => <button>{doctorWork}</button>,
+          render: (doctorWork:string) => <Button>{doctorWork}</Button>,
         },
         {
           title: '護理師工作項目',
           dataIndex: 'nurseWork',
           key: 'nurseWork',
-          render: (nurseWork:string) => <button>{nurseWork}</button>,
+          render: (nurseWork:string) => <Button>{nurseWork}</Button>,
         },
         {
           title: '完成',
           dataIndex: 'finish',
           key: 'finish',
-          render: (finish:string) => <button>{finish}</button>,
+          render: (finish:string) => <Button>{finish}</Button>,
+        }, 
+        {
+          title: '刪除',
+          dataIndex: 'finish',
+          key: 'finish',
+          render: (text:string, record:WorkQueue, index:number) => <Button onClick={()=>deleteById(record)}>刪除</Button>,
         }
       ];
 
