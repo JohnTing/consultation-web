@@ -1,5 +1,5 @@
 import { keyboard } from "@testing-library/user-event/dist/keyboard";
-import { Button, message, Table } from "antd";
+import { Button, message, Spin, Table } from "antd";
 import Input from "antd/lib/input/Input";
 import React, { useEffect, useState } from "react";
 
@@ -45,23 +45,30 @@ type WorkType = {
 export default function OutpatientWorkFrom(props: Props) {
   const [dataSource, setState] = useState<WorkType[]>([]);
   const [input, setInput] = useState("");
+
+  const [loading, setLoading] = useState(true);
+
   const API_URL = typeData[props.worker].API_URL;
   const WORKER_NAME = typeData[props.worker].WORKER_NAME;
 
   useEffect(() => {
+    setLoading(true)
     fetch(API_URL, {
       method: "GET",
       headers: API_HEADERS,
     })
       .then((response) => response.json())
       .then((data) => data as WorkType[])
-      .then((data) => setState(data))
+      .then((data) => {
+        setState(data)
+        setLoading(false)
+      })
       .catch((e) => {
         console.log(e);
       });
   }, [API_URL, props.worker]);
 
-  useEffect(() => {}, [dataSource]);
+  // useEffect(() => {}, [dataSource]);
 
   const columns = [
     {
@@ -99,6 +106,9 @@ export default function OutpatientWorkFrom(props: Props) {
 
   const handleDelete = (id: number) => {
     setState(dataSource.filter((item) => item.id !== id));
+
+
+
 
     fetch(API_URL + `/${id}`, {
       method: "DELETE",
@@ -154,5 +164,5 @@ export default function OutpatientWorkFrom(props: Props) {
       });
   };
 
-  return <Table dataSource={dataSource} rowKey="id" columns={columns} />;
+  return <Table dataSource={dataSource} rowKey="id" columns={columns} loading={loading} />
 }
