@@ -4,8 +4,10 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Breadcrumb, Button, Col, Layout, Menu, Row } from "antd";
 
+import "./index.css";
 // import 'antd/dist/antd.variable.min.css';
 import 'antd/dist/antd.min.css';
+
 
 import WorkQueueFrom from "./components/WorkQueueFrom";
 import EditWorkFrom, { Worker } from "./components/EditWorkFrom";
@@ -18,37 +20,39 @@ import UserPage2 from "./components/UserPage2";
 import MainLayout from "./components/MainLayout";
 import { Header, Content, Footer } from "antd/lib/layout/layout";
 
-ConfigProvider.config({
-  theme: {
-
-  },
-});
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
 
 
+    <Routes>
+    
+    <Route path="/userpage1" element={<UserPage1 nextpage={"userpage2"}></UserPage1>}/>
+    <Route path="/userpage2" element={<UserPage2></UserPage2>}/>
+
+
+    <Route path='/admin/*' element={
 
           <Layout>
             <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
               <div className="logo" />
               <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
 
-                <Menu.Item key="1">nav 1 <Link to="/userpage1" /></Menu.Item>
-                <Menu.Item key="2">nav 1 <Link to="/userpage2" /></Menu.Item>
-                <Menu.Item key="3">nav 1 <Link to="/WorkQueueFrom" /></Menu.Item>
-                <Menu.Item key="4">nav 1 <Link to="/setting" /></Menu.Item>
+                <Menu.Item key="1">nav 1 <Link to="userpage1" /></Menu.Item>
+                <Menu.Item key="2">nav 1 <Link to="userpage2" /></Menu.Item>
+                <Menu.Item key="3">nav 1 <Link to="WorkQueueFrom" /></Menu.Item>
+                <Menu.Item key="4">nav 1 <Link to="setting" /></Menu.Item>
               </Menu>
             </Header>
             <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
 
               <Routes>
 
-                <Route path='/EditWorkFrom'></Route>
+                <Route path='/EditWorkFrom'/>
 
                 <Route path="/mainlayout" element={<MainLayout></MainLayout>}/>
-                <Route path="/userpage1" element={<UserPage1></UserPage1>}/>
+                <Route path="/userpage1" element={<UserPage1 nextpage={"userpage2"}></UserPage1>}/>
                 <Route path="/userpage2" element={<UserPage2></UserPage2>}/>
 
 
@@ -79,6 +83,9 @@ ReactDOM.render(
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
           </Layout>
+
+                }/>
+          </Routes>
 
     </React.StrictMode>
   </BrowserRouter>,

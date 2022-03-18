@@ -1,9 +1,8 @@
-import { Avatar, Button, message, Table } from "antd";
-import Input from "antd/lib/input/Input";
+import { Button, PageHeader, Space } from "antd";
+
 import React, { useEffect, useState } from "react";
 
 import { Row, Col } from "antd";
-import { createFalse } from "typescript";
 
 const API_URL1 = "https://johnting-consultation-api.herokuapp.com/doctorwork";
 const API_URL2 = "https://johnting-consultation-api.herokuapp.com/nursework";
@@ -26,14 +25,6 @@ type WorkType = {
   updatedAt: Date;
 };
 
-type WorkTypeP = {
-  id: number;
-  work: string;
-  type: number;
-  createdAt: Date;
-  updatedAt: Date;
-};
-
 type WorkQueue = {
   patientSerial: number;
   doctorWork: string;
@@ -41,12 +32,24 @@ type WorkQueue = {
   finish: boolean;
 };
 
-const style = {
-  background: "#EEEEEE",
+const myborder = {
+  maxWidth: "640px",
+  margin: "auto",
+  borderStyle: "groove"
+}
+const mybutton1 = {
+
   height: "auto",
-  weight: "auto",
-  fontSize: "48px",
-};
+  width: "120px",
+}
+const mybutton2 = {
+  background: "#FFFF00",
+  height: "auto",
+  width: "120px"
+}
+
+
+
 
 export default function UserPage2() {
   const [works, setState] = useState<[WorkType[], WorkType[]]>([[], []]);
@@ -81,12 +84,12 @@ export default function UserPage2() {
 
   const postbutton = (serial: number, work: string, type: number) => {
     return (
-      <Col key={serial} >
+      <Col key={serial}>
         <Button
           //shape="round"
-          //type="primary"
-          //size="large"
-          style={style}
+          type="primary"
+          size="large"
+          style={mybutton1}
           onClick={() => {
             let workQueue: WorkQueue = {
               patientSerial: serial,
@@ -110,24 +113,29 @@ export default function UserPage2() {
       </Col>
     );
   };
-
-  useEffect(() => {
-    console.log(works);
-  }, [works]);
-
   let index = 0;
   return (
     <>
-      <Row justify="center" align="top" gutter={[16, 16]}>
-        {works[0].map((work) => {
-          index++;
-          return postbutton(index, work.work, 0);
-        })}
-        {works[1].map((work) => {
-          index++;
-          return postbutton(index, work.work, 1);
-        })}
-      </Row>
+      <div style={myborder}>
+        <PageHeader title="骨科APP 就診序號:"></PageHeader>
+
+        <Row gutter={[16, 16]} justify="center" align="top">
+          {works[0].map((work) => {
+            index++;
+            return postbutton(index, work.work, 0);
+          })}
+          {works[1].map((work) => {
+            index++;
+            return postbutton(index, work.work, 1);
+          })}
+          <Col>
+            <Button size="large" style={mybutton2}> 確認 </Button>
+          </Col>
+          <Col>
+            <Button size="large" style={mybutton1}> 取消 </Button>
+          </Col>
+        </Row>
+      </div>
     </>
   );
 }

@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.components-grid-demo-flex-align {
+  background: "#EEEEEE";
+  height: "auto";
+  width: "120px";
+};
+
+.components-button {
+  max-width: "640px";
+  margin: "auto";
+  border-style: "groove";
+};
+
+.components-yallo-button {
+  background: "#FFFF00";
+  height: "auto";
+  width: "120px";
+  font-size: "12px";
+};
+
