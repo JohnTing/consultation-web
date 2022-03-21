@@ -19,6 +19,7 @@ import { ConfigProvider } from 'antd';
 import UserPage2 from "./components/UserPage2";
 import MainLayout from "./components/MainLayout";
 import { Header, Content, Footer } from "antd/lib/layout/layout";
+import UserPage3 from "./components/UserPage3";
 
 
 ReactDOM.render(
@@ -27,10 +28,10 @@ ReactDOM.render(
 
 
     <Routes>
-    
+    <Route path="/" element={<UserPage1 nextpage={"userpage2"}></UserPage1>}/>
     <Route path="/userpage1" element={<UserPage1 nextpage={"userpage2"}></UserPage1>}/>
-    <Route path="/userpage2" element={<UserPage2></UserPage2>}/>
-
+    <Route path="/userpage2" element={<UserPage2 nextpage={"userpage3"} returnpage={"userpage1"}></UserPage2>}/>
+    <Route path="/userpage3" element={<UserPage3 nextpage={"userpage1"}></UserPage3>}/>
 
     <Route path='/admin/*' element={
 
@@ -53,8 +54,8 @@ ReactDOM.render(
 
                 <Route path="/mainlayout" element={<MainLayout></MainLayout>}/>
                 <Route path="/userpage1" element={<UserPage1 nextpage={"userpage2"}></UserPage1>}/>
-                <Route path="/userpage2" element={<UserPage2></UserPage2>}/>
-
+                <Route path="/userpage2" element={<UserPage2 nextpage={"userpage3"} returnpage={"userpage1"}></UserPage2>}/>
+                <Route path="/userpage3" element={<UserPage3 nextpage={"userpage1"}></UserPage3>}/>
 
                 
                 <Route path="/WorkQueueFrom" element={<WorkQueueFrom></WorkQueueFrom>}/>

@@ -5,6 +5,7 @@ import moment from 'moment';
 const { RangePicker } = DatePicker;
 
 const API_URL = "https://johnting-consultation-api.herokuapp.com/workqueue/daterange"
+const API_URL2 = "https://johnting-consultation-api.herokuapp.com/workqueue"
 const API_TOKEN = "Bearer tokena";
 
 const API_HEADERS = {
@@ -54,7 +55,7 @@ export default function WorkQueueFrom() {
 
   const deleteById = (workQueue: WorkQueue) => {
     setState(dataSource.filter((value) => value.id !== workQueue.id))
-    fetch(API_URL + `/${workQueue.id}`, {
+    fetch(API_URL2 + `/${workQueue.id}`, {
       method: "DELETE",
       headers: API_HEADERS,
     })
