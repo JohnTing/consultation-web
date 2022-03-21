@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 // import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { Breadcrumb, Button, Col, Layout, Menu, Row } from "antd";
+import {Col, Layout, Menu, Row } from "antd";
 
 import "./index.css";
 // import 'antd/dist/antd.variable.min.css';
@@ -15,7 +15,6 @@ import UserPage1 from "./components/UserPage1";
 
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
-import { ConfigProvider } from 'antd';
 import UserPage2 from "./components/UserPage2";
 import MainLayout from "./components/MainLayout";
 import { Header, Content, Footer } from "antd/lib/layout/layout";

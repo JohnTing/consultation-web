@@ -1,9 +1,9 @@
-import { Button, message, PageHeader, Space } from "antd";
+import { Button, message, PageHeader } from "antd";
 
 import React, { useEffect, useState } from "react";
 
 import { Row, Col } from "antd";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const API_URL1 = "https://johnting-consultation-api.herokuapp.com/doctorwork";
 const API_URL2 = "https://johnting-consultation-api.herokuapp.com/nursework";
@@ -38,12 +38,12 @@ type WorkQueue = {
   nurseWork: string;
   finish: boolean;
 };
-
+/*
 type Dataclips = {
   title: string;
   values: WorkType[];
 };
-
+*/
 const myborder = {
   maxWidth: "640px",
   margin: "auto",
