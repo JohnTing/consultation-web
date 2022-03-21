@@ -13,7 +13,7 @@ import WorkQueueFrom from "./components/WorkQueueFrom";
 import EditWorkFrom, { Worker } from "./components/EditWorkFrom";
 import UserPage1 from "./components/UserPage1";
 
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { HashRouter, Link, Route, Routes } from "react-router-dom";
 
 import UserPage2 from "./components/UserPage2";
 import MainLayout from "./components/MainLayout";
@@ -22,7 +22,7 @@ import UserPage3 from "./components/UserPage3";
 
 
 ReactDOM.render(
-  <BrowserRouter>
+  <HashRouter>
     <React.StrictMode>
 
 
@@ -88,7 +88,7 @@ ReactDOM.render(
           </Routes>
 
     </React.StrictMode>
-  </BrowserRouter>,
+  </HashRouter>,
 
   document.getElementById("root")
 );
