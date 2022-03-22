@@ -3,7 +3,7 @@ import { Button, PageHeader, Space } from "antd";
 import React, { useEffect, useState } from "react";
 
 import { Row, Col } from "antd";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const myborder = {
   maxWidth: "640px",
@@ -26,6 +26,7 @@ type Prop = {
 };
 
 export default function UserPage2(prop: Prop) {
+  const navigate = useNavigate();
   const search = useLocation().search;
   const id = new URLSearchParams(search).get("id");
   const work = new URLSearchParams(search).get("work");
@@ -39,9 +40,9 @@ export default function UserPage2(prop: Prop) {
         <h1>就診序號: {id}</h1>
 
         <h3>你選取的項目為 
-          <a href={prop.nextpage}>
           
-          <Button type="primary" size="large">{work}</Button></a></h3>
+          
+          <Button type="primary" size="large" onClick={()=>{navigate(`/${prop.nextpage}`)}} >{work}</Button></h3>
 
         <h1>登記成功</h1>
       </div>

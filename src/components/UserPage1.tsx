@@ -31,7 +31,7 @@ export default function UserPage1(prop: Prop) {
 
   const [mytext, setState] = useState<string>("");
 
-  const Square = (props: { value: number }) => {
+  const Square = (props: { value: string }) => {
     return (
       <Button
         style={mybutton1}
@@ -50,7 +50,7 @@ export default function UserPage1(prop: Prop) {
 
         <div style={myborder2}>
           <Row align="top" justify="center">
-            {[1, 2, 3].map((value, index, array) => {
+            {['1', '2', '3'].map((value, index, array) => {
               return (
                 <Col key={index} style={{ width: "auto" }}>
                   <Square value={value} />
@@ -59,7 +59,7 @@ export default function UserPage1(prop: Prop) {
             })}
           </Row>
           <Row align="top" justify="center">
-            {[4, 5, 6].map((value, index, array) => {
+            {['4', '5', '6'].map((value, index, array) => {
               return (
                 <Col key={index} style={{ width: "auto" }}>
                   <Square value={value} />
@@ -68,7 +68,7 @@ export default function UserPage1(prop: Prop) {
             })}
           </Row>
           <Row align="top" justify="center">
-            {[7, 8, 9].map((value, index, array) => {
+            {['7', '8', '9'].map((value, index, array) => {
               return (
                 <Col key={index} style={{ width: "auto" }}>
                   <Square value={value} />
@@ -77,7 +77,7 @@ export default function UserPage1(prop: Prop) {
             })}
           </Row>
           <Row align="top" justify="center">
-            {[12, 0, 14].map((value, index, array) => {
+            {['*', '0', '#'].map((value, index, array) => {
               return (
                 <Col key={index} style={{ width: "auto" }}>
                   <Square value={value} />
@@ -87,25 +87,19 @@ export default function UserPage1(prop: Prop) {
           </Row>
 
           <Row align="top" justify="center">
-            <Col key={0}>
-            
+            <Col key={"就診序號"}>
+        
               <Button type="primary" size="large" onClick={() => {
-
                 if(mytext.length <= 0) {
                   message.error("請輸入就診序號")
                   return
                 }
-
                 navigate(`/${prop.nextpage}?id=${mytext}`)
-
-
-
               }} >
                 確認
               </Button>
-              
             </Col>
-            <Col key={0}>
+            <Col key={"重新輸入"}>
               <Button type="dashed" size="large" onClick={() => setState("")}>
                 重新輸入
               </Button>

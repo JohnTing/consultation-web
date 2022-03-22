@@ -13,7 +13,7 @@ import WorkQueueFrom from "./components/WorkQueueFrom";
 import EditWorkFrom, { Worker } from "./components/EditWorkFrom";
 import UserPage1 from "./components/UserPage1";
 
-import { HashRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Link, Route, Routes } from "react-router-dom";
 
 import UserPage2 from "./components/UserPage2";
 import MainLayout from "./components/MainLayout";
@@ -22,17 +22,17 @@ import UserPage3 from "./components/UserPage3";
 
 
 ReactDOM.render(
-  <HashRouter>
+  <BrowserRouter basename="/consultation-web">
     <React.StrictMode>
 
 
     <Routes>
     <Route path="/" element={<UserPage1 nextpage={"userpage2"}></UserPage1>}/>
-    <Route path="/userpage1" element={<UserPage1 nextpage={"userpage2"}></UserPage1>}/>
-    <Route path="/userpage2" element={<UserPage2 nextpage={"userpage3"} returnpage={"userpage1"}></UserPage2>}/>
-    <Route path="/userpage3" element={<UserPage3 nextpage={"userpage1"}></UserPage3>}/>
+    <Route path="userpage1" element={<UserPage1 nextpage={"userpage2"}></UserPage1>}/>
+    <Route path="userpage2" element={<UserPage2 nextpage={"userpage3"} returnpage={"userpage1"}></UserPage2>}/>
+    <Route path="userpage3" element={<UserPage3 nextpage={"userpage1"}></UserPage3>}/>
 
-    <Route path='/admin/*' element={
+    <Route path='admin/*' element={
 
           <Layout>
             <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
@@ -88,7 +88,7 @@ ReactDOM.render(
           </Routes>
 
     </React.StrictMode>
-  </HashRouter>,
+  </BrowserRouter>,
 
   document.getElementById("root")
 );
