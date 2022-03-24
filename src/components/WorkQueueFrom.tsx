@@ -2,6 +2,7 @@ import { Button, message, Table, DatePicker, Anchor } from "antd";
 import Input from "antd/lib/input/Input";
 import React, { useEffect, useState } from "react";
 import moment from 'moment';
+import { SortOrder } from "antd/lib/table/interface";
 const { RangePicker } = DatePicker;
 
 const API_URL = "https://johnting-consultation-api.herokuapp.com/workqueue/daterange"
@@ -31,12 +32,16 @@ type WorkQueue = {
   createdAt: Date;
 }
 
+
+
+
 export default function WorkQueueFrom() {
   const [dataSource, setState] = useState<WorkQueue[]>([]);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<[moment.Moment, moment.Moment]>([moment(), moment().add(1, "day")]);
 
-  useEffect(() => {
+
+  function fetchData() {
     setLoading(true)
     fetch(API_URL + `?from=${timeRange[0].format("YYYY-MM-DD")}&to=${timeRange[1].format("YYYY-MM-DD")}`, {
       method: "GET",
@@ -51,6 +56,11 @@ export default function WorkQueueFrom() {
       .catch((e) => {
         console.log(e);
       });
+  }
+
+
+  useEffect(() => {
+    fetchData()
   }, [timeRange]);
 
   const deleteById = (workQueue: WorkQueue) => {
@@ -70,12 +80,59 @@ export default function WorkQueueFrom() {
   }
 
 
+  const finishById = (workQueue: WorkQueue) => {
+    const setFinish = !workQueue.finish
+
+    
+    setState(dataSource.map((e)=> {
+      e.finish = e.id === workQueue.id ? setFinish: e.finish
+      return e
+    }))
+    var raw = JSON.stringify({
+      "finish": setFinish
+    });
+    
+    fetch(API_URL2 + `/${workQueue.id}`, {
+      method: "PUT",
+      headers: API_HEADERS_JSON,
+      body: raw
+    })
+      .then((response) => response.json())
+      .then((data: WorkQueue) => {
+        console.log(data);
+
+        if (data.finish) {
+          message.success(`${data.doctorWork + data.nurseWork} 已完成`);
+        }else {
+          message.success(`${data.doctorWork + data.nurseWork} 未完成`);
+        }
+
+          
+      })
+      .catch((e) => {
+        message.error(`修改失敗: ${e}`);
+        console.log(e);
+      });
+  }
+
+
   const columns = [
+
+    {
+      title: 'id',
+      dataIndex: 'id',
+      render: (id: number) => <>{id}</>,
+      
+      sorter: (a:WorkQueue, b:WorkQueue) => a.id - b.id, 
+      defaultSortOrder: 'ascend' as SortOrder,
+    },
     {
       title: '病患序號',
       dataIndex: 'patientSerial',
       key: 'patientSerial',
       render: (patientSerial: number) => <>{patientSerial}</>,
+      sorter: (a:WorkQueue, b:WorkQueue) => a.patientSerial - b.patientSerial, 
+      
     },
     {
       title: '醫師工作項目',
@@ -93,14 +150,15 @@ export default function WorkQueueFrom() {
       title: '完成',
       dataIndex: 'finish',
       key: 'finish',
-      render: (finish: string) => <Button>{finish}</Button>,
+      render: (text: string, record: WorkQueue, index: number) => <Button type={record.finish ? "primary" : "default"}  onClick={() => finishById(record)} >{record.finish ? "已完成" : "未完成"}</Button>,
     },
     {
       title: '刪除',
       dataIndex: 'finish',
       key: 'finish',
-      render: (text: string, record: WorkQueue, index: number) => <Button onClick={() => deleteById(record)}>刪除</Button>,
-    }
+      render: (text: string, record: WorkQueue, index: number) => <Button danger onClick={() => deleteById(record)}>刪除</Button>,
+    }, 
+    
   ];
 
 
@@ -109,6 +167,7 @@ export default function WorkQueueFrom() {
     setTimeRange([dates?.[0] ?? moment() , dates?.[1] ?? moment()])
   
   }} />
+  <Button onClick={()=> {fetchData()}} >{"重新整理"}</Button>
   <Table dataSource={dataSource} rowKey="id" columns={columns} loading={loading} />
   </>;
 }

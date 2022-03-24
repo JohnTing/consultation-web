@@ -139,7 +139,7 @@ export default function OutpatientWorkFrom(props: Props) {
       }
     }
 
-    var raw = JSON.stringify({
+    let raw = JSON.stringify({
       work: work,
     });
 
