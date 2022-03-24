@@ -39,13 +39,14 @@ export default function WorkQueueFrom() {
   const [dataSource, setState] = useState<WorkQueue[]>([]);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<[moment.Moment, moment.Moment]>([moment(), moment().add(1, "day")]);
-
+  const abortController = new AbortController();
 
   function fetchData() {
     setLoading(true)
     fetch(API_URL + `?from=${timeRange[0].format("YYYY-MM-DD")}&to=${timeRange[1].format("YYYY-MM-DD")}`, {
       method: "GET",
       headers: API_HEADERS,
+      signal: abortController.signal
     })
       .then((response) => response.json())
       .then((data) => data as WorkQueue[])
@@ -60,7 +61,10 @@ export default function WorkQueueFrom() {
 
 
   useEffect(() => {
+    
     fetchData()
+
+    return () => abortController.abort()
   }, [timeRange]);
 
   const deleteById = (workQueue: WorkQueue) => {
@@ -80,14 +84,11 @@ export default function WorkQueueFrom() {
   }
 
 
-  const finishById = (workQueue: WorkQueue) => {
+  const finishById = (event: React.MouseEvent<HTMLElement, MouseEvent>, workQueue: WorkQueue) => {
+    
     const setFinish = !workQueue.finish
 
     
-    setState(dataSource.map((e)=> {
-      e.finish = e.id === workQueue.id ? setFinish: e.finish
-      return e
-    }))
     var raw = JSON.stringify({
       "finish": setFinish
     });
@@ -106,6 +107,10 @@ export default function WorkQueueFrom() {
         }else {
           message.success(`${data.doctorWork + data.nurseWork} 未完成`);
         }
+        setState(dataSource.map((e)=> {
+          e.finish = e.id === workQueue.id ? setFinish: e.finish
+          return e
+        }))
 
           
       })
@@ -150,7 +155,7 @@ export default function WorkQueueFrom() {
       title: '完成',
       dataIndex: 'finish',
       key: 'finish',
-      render: (text: string, record: WorkQueue, index: number) => <Button type={record.finish ? "primary" : "default"}  onClick={() => finishById(record)} >{record.finish ? "已完成" : "未完成"}</Button>,
+      render: (text: string, record: WorkQueue, index: number) => <Button type={record.finish ? "primary" : "default"}  onClick={(e) => finishById(e, record)} >{record.finish ? "已完成" : "未完成"}</Button>,
     },
     {
       title: '刪除',

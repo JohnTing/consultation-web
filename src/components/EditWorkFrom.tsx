@@ -53,9 +53,12 @@ export default function OutpatientWorkFrom(props: Props) {
 
   useEffect(() => {
     setLoading(true)
+    
+    const abortController = new AbortController();
     fetch(API_URL, {
       method: "GET",
       headers: API_HEADERS,
+      signal: abortController.signal
     })
       .then((response) => response.json())
       .then((data) => data as WorkType[])
@@ -66,6 +69,8 @@ export default function OutpatientWorkFrom(props: Props) {
       .catch((e) => {
         console.log(e);
       });
+
+      return () => abortController.abort()
   }, [API_URL, props.worker]);
 
   // useEffect(() => {}, [dataSource]);
@@ -109,10 +114,9 @@ export default function OutpatientWorkFrom(props: Props) {
 
 
 
-
     fetch(API_URL + `/${id}`, {
       method: "DELETE",
-      headers: API_HEADERS,
+      headers: API_HEADERS
     })
       .then((response) => response.json())
       .then((data: WorkType) => {

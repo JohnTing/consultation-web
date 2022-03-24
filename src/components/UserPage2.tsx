@@ -72,12 +72,14 @@ export default function UserPage2(prop: Prop) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const search = useLocation().search;
   const id = new URLSearchParams(search).get("id");
+  const abortController = new AbortController();
 
   useEffect(() => {
     setIsLoading(true)
     const promise1 = fetch(API_URL1, {
       method: "GET",
       headers: API_HEADERS,
+      signal: abortController.signal
     })
       .then((response) => response.json())
       //.then((data) => data as Dataclips)
@@ -90,6 +92,7 @@ export default function UserPage2(prop: Prop) {
     const promise2 = fetch(API_URL2, {
       method: "GET",
       headers: API_HEADERS,
+      signal: abortController.signal
     })
       .then((response) => response.json())
       //.then((data) => data as Dataclips)
@@ -103,6 +106,7 @@ export default function UserPage2(prop: Prop) {
       setState([datas[0], datas[1]]);
       setIsLoading(false)
     });
+    return () => abortController.abort()
   }, []);
 
 
