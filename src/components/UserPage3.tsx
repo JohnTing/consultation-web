@@ -31,6 +31,23 @@ export default function UserPage2(prop: Prop) {
   const id = new URLSearchParams(search).get("id");
   const work = new URLSearchParams(search).get("work");
 
+const [mytimeout, setMytimeout] = useState(5);
+
+  useEffect(() => {
+
+    const timer1 = setInterval(() => {
+      setMytimeout(mytimeout - 1)
+      if(mytimeout === 0) {
+        navigate(`/${prop.nextpage}`)
+      }
+
+    }, 1000);
+
+
+    return () => clearInterval(timer1)
+  }, [mytimeout])
+
+
   return (
     <>
       <div style={myborder}>
@@ -45,6 +62,10 @@ export default function UserPage2(prop: Prop) {
           <Button type="primary" size="large" onClick={()=>{navigate(`/${prop.nextpage}`)}} >{work}</Button></h3>
 
         <h1>登記成功</h1>
+        <h4>{mytimeout} 秒後跳轉</h4>
+
+
+        
       </div>
     </>
   );

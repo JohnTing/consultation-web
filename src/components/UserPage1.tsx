@@ -77,7 +77,7 @@ export default function UserPage1(prop: Prop) {
             })}
           </Row>
           <Row align="top" justify="center">
-            {['*', '0', '#'].map((value, index, array) => {
+            {['', '0', ''].map((value, index, array) => {
               return (
                 <Col key={index} style={{ width: "auto" }}>
                   <Square value={value} />
