@@ -9,6 +9,9 @@ const API_URL = "https://johnting-consultation-api.herokuapp.com/workqueue/dater
 const API_URL2 = "https://johnting-consultation-api.herokuapp.com/workqueue"
 const API_TOKEN = "Bearer tokena";
 
+const CSV1 = "https://data.heroku.com/dataclips/kuxjdcnfxpmeupxyzlbgetbvlpco.csv"
+
+
 const API_HEADERS = {
   authorization: API_TOKEN,
 };
@@ -123,6 +126,9 @@ export default function WorkQueueFrom() {
 
   const columns = [
 
+
+
+
     {
       title: 'id',
       dataIndex: 'id',
@@ -143,27 +149,42 @@ export default function WorkQueueFrom() {
       title: '醫師工作項目',
       dataIndex: 'doctorWork',
       key: 'doctorWork',
-      render: (doctorWork: string) => <Button>{doctorWork}</Button>,
+      render: (doctorWork: string) => doctorWork,
     },
     {
       title: '護理師工作項目',
       dataIndex: 'nurseWork',
       key: 'nurseWork',
-      render: (nurseWork: string) => <Button>{nurseWork}</Button>,
+      render: (nurseWork: string) => nurseWork,
     },
     {
       title: '完成',
       dataIndex: 'finish',
       key: 'finish',
+      onFilter: (value: any, record: WorkQueue) => record.finish === value, 
+
+      filters: [
+        {
+          text: '顯示已完成',
+          value: true,
+        },
+        {
+          text: '顯示未完成',
+          value: false,
+        },
+      ], 
+
+
       render: (text: string, record: WorkQueue, index: number) => <Button type={record.finish ? "primary" : "default"}  onClick={(e) => finishById(e, record)} >{record.finish ? "已完成" : "未完成"}</Button>,
     },
+    /*
     {
       title: '刪除',
       dataIndex: 'finish',
       key: 'finish',
       render: (text: string, record: WorkQueue, index: number) => <Button danger onClick={() => deleteById(record)}>刪除</Button>,
     }, 
-    
+    */
   ];
 
 
@@ -173,6 +194,10 @@ export default function WorkQueueFrom() {
   
   }} />
   <Button onClick={()=> {fetchData()}} >{"重新整理"}</Button>
+  <a href={CSV1}><Button>下載CSV</Button></a>
+
+
+
   <Table dataSource={dataSource} rowKey="id" columns={columns} loading={loading} />
   </>;
 }

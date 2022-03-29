@@ -71,7 +71,10 @@ export default function UserPage2(prop: Prop) {
   const [swork, setSwork] = useState<WorkQueue>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const search = useLocation().search;
-  const id = new URLSearchParams(search).get("id");
+  const ParamId = new URLSearchParams(search).get("id");
+  const patientSerial = ParamId ? parseInt(ParamId) : -1
+
+
   const abortController = new AbortController();
 
   useEffect(() => {
@@ -120,7 +123,7 @@ export default function UserPage2(prop: Prop) {
           style={mybutton1}
           onClick={() => {
             let workQueue: WorkQueue = {
-              patientSerial: serial,
+              patientSerial: patientSerial,
               doctorWork: type === 0 ? work : "",
               nurseWork: type === 1 ? work : "",
               finish: false,
@@ -138,7 +141,7 @@ export default function UserPage2(prop: Prop) {
   return (
     <>
       <div style={myborder}>
-        <PageHeader title={"骨科APP 就診序號:" + id}></PageHeader>
+        <PageHeader title={"骨科APP 就診序號:" + patientSerial}></PageHeader>
 
         <Row gutter={[16, 16]} justify="center" align="top">
           {works[0].map((work) => {
@@ -160,7 +163,7 @@ export default function UserPage2(prop: Prop) {
                   message.error("請輸入看診項目");
                   return;
                 }
-                if (!id || id.length <= 0) {
+                if (patientSerial <= 0) {
                   message.error("請輸入就診序號");
                   return;
                 }
@@ -175,7 +178,7 @@ export default function UserPage2(prop: Prop) {
                   .catch((e) => console.log(e));
 
                 navigate(
-                  `/${prop.nextpage}?id=${id}&work=${
+                  `/${prop.nextpage}?id=${patientSerial}&work=${
                     swork.nurseWork + swork.doctorWork
                   }`
                 );
