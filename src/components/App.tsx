@@ -53,6 +53,10 @@ export const App = () => {
               style={{ padding: "0 50px", marginTop: 64 }}
             >
               <Routes>
+              <Route
+                  path=""
+                  element={<WorkQueueFrom></WorkQueueFrom>}
+                />
                 <Route
                   path="WorkQueueFrom"
                   element={<WorkQueueFrom></WorkQueueFrom>}
@@ -83,7 +87,7 @@ export const App = () => {
               </Routes>
             </Content>
             <Footer style={{ textAlign: "center" }}>
-              Ant Design ©2018 Created by Ant UED
+              <p>HSC</p>
             </Footer>
           </Layout>
         }

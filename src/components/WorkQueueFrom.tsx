@@ -1,4 +1,4 @@
-import { Button, message, Table, DatePicker, Anchor } from "antd";
+import { Button, message, Table, DatePicker, Anchor, Space } from "antd";
 import Input from "antd/lib/input/Input";
 import React, { useEffect, useState } from "react";
 import moment from 'moment';
@@ -54,6 +54,11 @@ export default function WorkQueueFrom() {
       .then((response) => response.json())
       .then((data) => data as WorkQueue[])
       .then((data) => {
+
+        for(const d of data) {
+          d.createdAt = new Date(d.createdAt)
+        }
+
         setState(data)
         setLoading(false)
       })
@@ -114,8 +119,6 @@ export default function WorkQueueFrom() {
           e.finish = e.id === workQueue.id ? setFinish: e.finish
           return e
         }))
-
-          
       })
       .catch((e) => {
         message.error(`修改失敗: ${e}`);
@@ -127,14 +130,14 @@ export default function WorkQueueFrom() {
   const columns = [
 
 
-
-
     {
-      title: 'id',
-      dataIndex: 'id',
-      render: (id: number) => <>{id}</>,
+      title: '登記時間',
+      dataIndex: 'createdAt',
+      render: (createdAt: Date) => <>{
+        createdAt.toLocaleTimeString()
+        }</>,
       
-      sorter: (a:WorkQueue, b:WorkQueue) => a.id - b.id, 
+      sorter: (a:WorkQueue, b:WorkQueue) => a.createdAt.getTime() - b.createdAt.getTime(), 
       defaultSortOrder: 'ascend' as SortOrder,
     },
     {
@@ -189,13 +192,15 @@ export default function WorkQueueFrom() {
 
 
   return <>
+
+  <Space size={[8, 16]}>
+  時間區間：
   <RangePicker size="large" defaultValue={[moment(), moment()]} value={timeRange} onChange={(dates, dateStrings) => {
     setTimeRange([dates?.[0] ?? moment() , dates?.[1] ?? moment()])
-  
   }} />
   <Button onClick={()=> {fetchData()}} >{"重新整理"}</Button>
   <a href={CSV1}><Button>下載CSV</Button></a>
-
+  </Space>
 
 
   <Table dataSource={dataSource} rowKey="id" columns={columns} loading={loading} />
