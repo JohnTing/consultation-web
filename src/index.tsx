@@ -4,9 +4,11 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Col, Layout, Menu, Row } from "antd";
 
+
+// import "antd/dist/antd.min.css";
+
 import "./index.css";
 // import 'antd/dist/antd.variable.min.css';
-import "antd/dist/antd.min.css";
 
 import { BrowserRouter, Navigate, Route } from "react-router-dom";
 
