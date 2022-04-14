@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import { Row, Col } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import MySteps from "./mySteps";
 
 const API_URL1 = "https://johnting-consultation-api.herokuapp.com/doctorwork";
 const API_URL2 = "https://johnting-consultation-api.herokuapp.com/nursework";
@@ -50,20 +51,22 @@ const myborder = {
   // borderStyle: "groove",
 };
 const mybutton1 = {
-  display: "inlineBlock",
+  display: "table",
   height: "auto",
   width: "100%",
-  minWidrh: "100px", 
-  fontSize: '22px', 
-  padding: "10px 20px 10px 20px"
+  minWidth: "80px",
+  fontSize: '22px',
+  padding: "10px 5px",
+
 };
 const mybutton2 = {
-  background: "#FFFF00",
+  display: "table",
   height: "auto",
+  minHeight: "60px",
   width: "100%",
-  minWidrh: "100px", 
-  fontSize: '22px', 
-  padding: "10px 20px 10px 20px"
+  minWidth: "100px",
+  fontSize: '22px',
+  padding: "10px 5px",
 };
 
 type Prop = {
@@ -147,8 +150,8 @@ export default function UserPage2(prop: Prop) {
 
       <Col key={serial} span="8" >
 
-        <Radio.Button value={work} 
-          
+        <Radio.Button value={work}
+
           style={mybutton1}
           onClick={() => {
             let workQueue: WorkQueue = {
@@ -160,12 +163,12 @@ export default function UserPage2(prop: Prop) {
 
             setSwork(workQueue);
           }}
-        > 
+        >
 
-        {work}
-        
-      
-          
+          {work}
+
+
+
         </Radio.Button>
 
       </Col>
@@ -175,20 +178,22 @@ export default function UserPage2(prop: Prop) {
   return (
     <>
       <Row justify="center" align="top">
-        <Col style={myborder}>
-          <PageHeader title={"骨科APP 就診序號:" + patientSerial}></PageHeader>
+        <Col >
+
+          <h1>就診序號: </h1>
+        </Col>
+        <Col >
+          <h1>{patientSerial}</h1>
         </Col>
       </Row>
+      <MySteps step={1}></MySteps>
 
 
 
-
-      <Row justify="center" align="top" style={{ width: "90%", margin: "auto" }}>
+      <Row justify="center" align="top" style={{ width: "100%", margin: "auto", textAlign: "center" }}>
         <Col style={myborder}>
 
           <Radio.Group defaultValue="" buttonStyle="solid">
-
-
 
             <Row gutter={[16, 16]} justify="center" align="top">
               {works[0].map((work) => {
@@ -204,8 +209,8 @@ export default function UserPage2(prop: Prop) {
 
           </Radio.Group>
 
-              <br/>
-              <br></br>
+          <br />
+          <br></br>
 
           <Row justify="center" align="top" gutter={[24, 24]} >
             <Col>
@@ -213,6 +218,7 @@ export default function UserPage2(prop: Prop) {
                 style={mybutton2}
                 loading={isLoading}
                 disabled={!swork}
+                type="primary"
                 onClick={() => {
                   if (!swork) {
                     message.error("請輸入看診項目");
@@ -253,12 +259,12 @@ export default function UserPage2(prop: Prop) {
             </Col>
             <Col>
               <Link to={"/" + prop.returnpage}>
-                <Button loading={isLoading} style={mybutton1}>
+                <Button loading={isLoading} style={mybutton2}>
                   {"取消"}
                 </Button>
               </Link>
 
-              </Col>
+            </Col>
           </Row>
 
         </Col>
