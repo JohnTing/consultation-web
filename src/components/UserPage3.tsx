@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import { Row, Col } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
+import MySteps from "./mySteps";
 
 const mybutton1 = {
   height: "80px",
@@ -46,22 +47,31 @@ export default function UserPage2(prop: Prop) {
 
       <Row justify="center" align="top">
         <Col >
-          <PageHeader title={"骨科APP 就診序號:" + id}></PageHeader>
+
+          <h1>就診序號: </h1>
         </Col>
+        <Col >
+          <h1>{id}</h1>
+        </Col>
+
+
       </Row>
+
+      <MySteps step={2}></MySteps>
+
       <Row justify="center" align="top">
         <Col >
 
-      <h3>你選取的項目為
-      <Button type="primary"  style={mybutton1} onClick={() => { navigate(`/${prop.nextpage}`) }} >{work}</Button>
-        </h3>
-        
+          <h3>你選取的項目為
+            <Button style={mybutton1} onClick={() => { navigate(`/${prop.nextpage}`) }} >{work}</Button>
+          </h3>
 
-      <h3>登記成功</h3>
-      <Button type="primary" style={mybutton1}  onClick={() => { navigate(`/${prop.nextpage}`) }} >返回主頁</Button>
-      <h4>{mytimeout} 秒後自動返回主頁</h4>
 
-      </Col>
+          <h3>登記成功</h3>
+          <Button type="primary" style={mybutton1} onClick={() => { navigate(`/${prop.nextpage}`) }} >返回主頁</Button>
+          <h4>{mytimeout} 秒後自動返回主頁</h4>
+
+        </Col>
       </Row>
 
     </>
