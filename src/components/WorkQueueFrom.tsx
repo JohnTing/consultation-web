@@ -203,6 +203,6 @@ export default function WorkQueueFrom() {
   </Space>
 
 
-  <Table dataSource={dataSource} rowKey="id" columns={columns} loading={loading} />
+  <Table dataSource={dataSource} rowKey="id" size="small" columns={columns} loading={loading} />
   </>;
 }

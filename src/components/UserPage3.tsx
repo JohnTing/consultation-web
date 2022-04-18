@@ -63,7 +63,7 @@ export default function UserPage2(prop: Prop) {
         <Col >
 
           <h3>你選取的項目為
-            <Button type="primary" style={mybutton1} onClick={() => { navigate(`/${prop.nextpage}`) }} >{work}</Button>
+            <Button style={mybutton1} onClick={() => { navigate(`/${prop.nextpage}`) }} >{work}</Button>
           </h3>
 
 

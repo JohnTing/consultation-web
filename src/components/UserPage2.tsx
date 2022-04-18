@@ -56,7 +56,7 @@ const mybutton1 = {
   width: "100%",
   minWidth: "80px",
   fontSize: '22px',
-  padding: "10px 5px",
+  padding: "10px 0px",
 
 };
 const mybutton2 = {
@@ -66,7 +66,7 @@ const mybutton2 = {
   width: "100%",
   minWidth: "100px",
   fontSize: '22px',
-  padding: "10px 5px",
+  padding: "10px 0px",
 };
 
 type Prop = {
